@@ -1,10 +1,15 @@
 Selenium & Java based frontend automation suite utilising the BDD methodologies of Cucumber and Gherkin
 
 1. Install JAVA SDK 8
+
 2. Install Maven
+
 3. Install Git
+
 4. Install Eclipse
+
 5. Install Eclipse Cucumber Plugin
+
 6.Install Eclipse TestNG Plugin
 
 Set Path Variables
@@ -19,6 +24,6 @@ Each Feature file has it’s step defition, pageobject & model class
               
    3-Define page objects as required in PageObjectManager
               
-   5-Create Page Class & Define actions as per requirement from BasePageObject class
+   4-Create Page Class & Define actions as per requirement from BasePageObject class
               
-   6-Instantiate model object in Step definition & execute tests required per step
+   5-Instantiate model object in Step definition & execute tests required per step
