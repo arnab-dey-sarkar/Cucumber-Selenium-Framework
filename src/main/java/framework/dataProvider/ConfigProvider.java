@@ -65,5 +65,8 @@ public class ConfigProvider {
 		throw new Exception("Propery Not Found");
 
 	}
-
+	public static int getAsInt(String property) throws NumberFormatException, Exception
+	{
+		return Integer.parseInt(ConfigProvider.getAsString(property));
+	}
 }

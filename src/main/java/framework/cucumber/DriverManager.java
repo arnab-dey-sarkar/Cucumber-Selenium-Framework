@@ -4,14 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 
 import framework.dataProvider.ConfigProvider;
 import framework.enums.DriverType;
 import framework.enums.EnvironmentType;
+import io.github.bonigarcia.wdm.Architecture;
 import io.github.bonigarcia.wdm.WebDriverManager;
-
-import java.util.concurrent.TimeUnit;
 
 public class DriverManager {
 	private WebDriver driver;
@@ -28,7 +29,6 @@ public class DriverManager {
 			driver = startDriver();
 		return driver;
 	}
-
 	private WebDriver startDriver() throws Exception {
 		switch (environmentType) {
 		case LOCAL:
@@ -45,31 +45,47 @@ public class DriverManager {
 		throw new RuntimeException("RemoteWebDriver is not yet implemented");
 	}
 
+	@SuppressWarnings("deprecation")
 	private WebDriver createLocalDriver() throws Exception {
+		boolean headless=Boolean.parseBoolean(ConfigProvider.getAsString("headLess"));
+		Architecture archType = Architecture.DEFAULT;
+		String arch = ConfigProvider.getAsString("arch.version");
+		if (arch.equalsIgnoreCase("32"))
+			archType = Architecture.X32;
+		else if (arch.equalsIgnoreCase("64"))
+			archType = Architecture.X64;
 		switch (driverType) {
 		case FIREFOX:
-			WebDriverManager.firefoxdriver().version(ConfigProvider.getAsString("firefox.version")).setup();
+			FirefoxOptions foptions=new FirefoxOptions();
+			foptions.isJavascriptEnabled();
+			foptions.setHeadless(headless);
+			WebDriverManager.firefoxdriver().architecture(archType)
+					.version(ConfigProvider.getAsString("firefox.version")).setup();
 			driver = new FirefoxDriver();
 			break;
 		case CHROME:
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--start-maximized");
 			options.addArguments("--disable-notifications");
-			WebDriverManager.chromedriver().version(ConfigProvider.getAsString("chrome.version")).setup();
+			options.setHeadless(headless);
+			WebDriverManager.chromedriver().architecture(archType).version(ConfigProvider.getAsString("chrome.version")).setup();
 			driver = new ChromeDriver(options);
 			break;
 		case INTERNETEXPLORER:
-			WebDriverManager.iedriver().version(ConfigProvider.getAsString("ie.version")).setup();
-			driver = new InternetExplorerDriver();
+			InternetExplorerOptions ieoptions = new InternetExplorerOptions();
+			ieoptions.enablePersistentHovering();
+			ieoptions.ignoreZoomSettings();
+			ieoptions.requireWindowFocus();
+			ieoptions.introduceFlakinessByIgnoringSecurityDomains();
+			ieoptions.isJavascriptEnabled();
+			ieoptions.enableNativeEvents();
+			WebDriverManager.iedriver().architecture(archType).version(ConfigProvider.getAsString("ie.version")).setup();
+			driver = new InternetExplorerDriver(ieoptions);
 			break;
+		default:
+			System.out.println("Please Update Browser In Properties");
 		}
 
 		return driver;
 	}
-
-	public void closeDriver() {
-		driver.close();
-		driver.quit();
-	}
-
 }
