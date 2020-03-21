@@ -15,6 +15,7 @@ import cucumber.api.testng.TestNGCucumberRunner;
 public class AbstractCucumberTestNG {
 	private TestNGCucumberRunner testNGCucumberRunner;
 	protected Scenario scenario;
+
 	@BeforeClass(alwaysRun = true)
 	public void setUpClass() throws Exception {
 		testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
@@ -30,13 +31,14 @@ public class AbstractCucumberTestNG {
 		return testNGCucumberRunner.provideFeatures();
 	}
 
-//	    @AfterClass
-//	    public static void writeExtentReport() {
-//	        
-//	    }
+	@AfterClass
+	public static void writeExtentReport() {
+		Reporter.loadXMLConfig("src/test/resources/properties/extent-config.xml");
+	}
+
 	@AfterClass(alwaysRun = true)
 	public void tearDownClass() throws Exception {
-		Reporter.loadXMLConfig("src/test/resources/properties/extent-config.xml");
+
 		testNGCucumberRunner.finish();
 	}
 

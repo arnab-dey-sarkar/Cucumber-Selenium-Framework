@@ -1,4 +1,4 @@
-@Free_CRM_Application
+@UI
 Feature: Free CRM Login Feature
 
   Scenario: Developer Salesforce
