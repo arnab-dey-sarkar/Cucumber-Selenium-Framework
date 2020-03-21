@@ -11,14 +11,16 @@ public class LoginStepDefinition extends AbstractSteps {
 		startDriver();
 		getDriver().get(ConfigProvider.getAsString("ApplicationUrl"));
 		pageObjectManager.getHomePage().User_is_on_Homepage();
-		
+
 	}
+
 	@When("^User Clicks On Login$")
-	public void user_Clicks_On_Login() throws Throwable {
+	public void user_Clicks_On_Login() {
 		pageObjectManager.getHomePage().user_Clicks_On_Login();
 	}
+
 	@Then("^Verify The Login Page$")
-	public void verify_The_Login_Page() throws Throwable {
+	public void verify_The_Login_Page() {
 		pageObjectManager.getHomePage().verify_The_Login_Page();
 		stopDriver();
 	}

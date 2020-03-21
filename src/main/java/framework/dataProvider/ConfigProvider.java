@@ -69,4 +69,8 @@ public class ConfigProvider {
 	{
 		return Integer.parseInt(ConfigProvider.getAsString(property));
 	}
+	public static boolean getAsBoolean(String property) throws Exception
+	{
+		return Boolean.parseBoolean(ConfigProvider.getAsString(property));
+	}
 }
