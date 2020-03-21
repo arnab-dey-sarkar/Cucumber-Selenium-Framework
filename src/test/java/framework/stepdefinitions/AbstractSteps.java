@@ -10,7 +10,7 @@ public class AbstractSteps {
 	protected PageObjectManager pageObjectManager;
 	static WebDriver driver;
 
-	public void startDriver() {
+	public void startDriver() throws Exception {
 		webDriverManager = new DriverManager();
 		driver=webDriverManager.getDriverInstance();
 		pageObjectManager = new PageObjectManager(driver);

@@ -7,7 +7,7 @@ import framework.dataProvider.ConfigProvider;
 
 public class LoginStepDefinition extends AbstractSteps {
 	@Given("^User is on Homepage$")
-	public void User_is_on_Homepage() {
+	public void User_is_on_Homepage() throws Exception {
 		startDriver();
 		getDriver().get(ConfigProvider.getAsString("ApplicationUrl"));
 		pageObjectManager.getHomePage().User_is_on_Homepage();

@@ -18,18 +18,18 @@ public class DriverManager {
 	private static DriverType driverType;
 	private static EnvironmentType environmentType;
 
-	public DriverManager() {
+	public DriverManager() throws Exception {
 		driverType = FileReaderManager.getInstance().getConfigReader().getBrowser();
 		environmentType = FileReaderManager.getInstance().getConfigReader().getEnvironment();
 	}
 
-	public WebDriver getDriverInstance() {
+	public WebDriver getDriverInstance() throws Exception {
 		if (driver == null)
 			driver = startDriver();
 		return driver;
 	}
 
-	private WebDriver startDriver() {
+	private WebDriver startDriver() throws Exception {
 		switch (environmentType) {
 		case LOCAL:
 			driver = createLocalDriver();
@@ -45,7 +45,7 @@ public class DriverManager {
 		throw new RuntimeException("RemoteWebDriver is not yet implemented");
 	}
 
-	private WebDriver createLocalDriver() {
+	private WebDriver createLocalDriver() throws Exception {
 		switch (driverType) {
 		case FIREFOX:
 			WebDriverManager.firefoxdriver().version(ConfigProvider.getAsString("firefox.version")).setup();
@@ -64,10 +64,6 @@ public class DriverManager {
 			break;
 		}
 
-//		if (FileReaderManager.getInstance().getConfigReader().getBrowserWindowSize())
-//			driver.manage().window().maximize();
-//		driver.manage().timeouts().implicitlyWait(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait(),
-//				TimeUnit.MILLISECONDS);
 		return driver;
 	}
 

@@ -15,7 +15,7 @@ public class API_StepDefinitions {
 	Response response;
 
 	@Given("The BaseURL is \"([^\"]*)\"")
-	public void the_BaseURL_is(String baseURI) {
+	public void the_BaseURL_is(String baseURI) throws Exception {
 		String baseURL = ConfigProvider.getAsString("BaseURL") + baseURI;
 		RestAssured.baseURI = baseURL;
 		request = RestAssured.given();

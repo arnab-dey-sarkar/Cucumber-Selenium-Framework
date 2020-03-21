@@ -6,7 +6,7 @@ import framework.utilities.AbstractCucumberTestNG;
         features = "src/test/resources/features",
         glue = {"framework.stepdefinitions"},
         plugin ={"com.cucumber.listener.ExtentCucumberFormatter:BDD_REPORTS/BDD-REPORT.html"},
-        tags = {"@API"},
+        tags = {"@UI"},
         dryRun = false,monochrome = true)
 
 public class TestRunner extends AbstractCucumberTestNG{
