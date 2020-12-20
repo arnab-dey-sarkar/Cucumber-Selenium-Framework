@@ -14,6 +14,8 @@ public class HomePage extends BasePageObject {
 	private String products="//a[contains(text(),'Products')]";
 	private String login = "//button[contains(text(),'Login')]";
 	private String loginbutton="//input[@id='Login']";
+	private String usernamefield="//input[@id='username']";
+	private String passwordfield="//input[@id='password']";
 
 	public void User_is_on_Homepage() {
 		AssertionLibrary.assertTrue(isDisplayed(products), "Homepage Verification");
@@ -30,4 +32,12 @@ public class HomePage extends BasePageObject {
 		AssertionLibrary.assertTrue(isDisplayed(loginbutton), "Login Page Verification");
 	}
 
+    public void userEntersUsernameAsUsernameAndPasswordAsPassword(String userName, String passWord) {
+		setInputvalue(usernamefield,userName);
+		setInputvalue(passwordfield,passWord);
+    }
+
+	public void userSnapsAScreenshot() throws Exception {
+		TakeScreenshot();
+	}
 }
