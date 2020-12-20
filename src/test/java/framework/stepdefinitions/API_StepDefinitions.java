@@ -22,7 +22,7 @@ public class API_StepDefinitions {
 	}
 
 	@Given("Static \"([^\"]*)\" Information Are Loaded")
-	public void static_Information_Are_Loaded(String headers) throws IOException {
+	public void static_Information_Are_Loaded(String headers) throws Exception {
 		if (headers != null) {
 			String[] headerlist = DefaultStepDefinition.getCellData(headers).split("\n");
 			for (String list : headerlist) {

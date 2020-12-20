@@ -28,7 +28,7 @@ import framework.utilities.AbstractCucumberTestNG;
 public class DefaultStepDefinition extends AbstractCucumberTestNG {
     private static String sheetName = new String();// sheetname
     private static String workBook = new String();// workbookPath
-    private static Map<String, String> map = new HashMap<>();
+    private static Map<String, HashMap> dataMap = new HashMap<>();
     private static Scenario scenario;
 
     @Given("A WorkBook Named \"([^\"]*)\" with SheetName \"([^\"]*)\" is Loaded")
@@ -42,8 +42,7 @@ public class DefaultStepDefinition extends AbstractCucumberTestNG {
         DefaultStepDefinition.scenario = scenario;
     }
 
-    public static String getCellData(String columnName) {
-        String columnData = "";
+    public static String getCellData(String columnName) throws Exception {
         String testCase = scenario.getName();
         try {
             Fillo fillo = new Fillo();
@@ -54,16 +53,22 @@ public class DefaultStepDefinition extends AbstractCucumberTestNG {
                 String tcName = tcData.getField("TestDataID");
                 if (tcName == null || tcName.equalsIgnoreCase(""))
                     continue;
-                if (tcName.equalsIgnoreCase(testCase)) {
-                    columnData = tcData.getField(columnName);
-                    break;
-                }
+                HashMap<String, String> columnMap = new HashMap<String, String>();
 
+                for (String column : tcData.getFieldNames()) {
+                    String columnValue = tcData.getField(column);
+                    columnMap.put(column, columnValue);
+                }
+                dataMap.put(tcName, columnMap);
             }
         } catch (Exception e) {
 
         }
-        return columnData;
+        if (dataMap.containsKey(testCase)) {
+            return (String) dataMap.get(testCase).get(columnName);
+        }
+        else
+            throw new Exception("No Testdata Found With Relevance To Scenario Name");
     }
 
     public static String findFile(String fileName, String searchDirectory) throws IOException {
