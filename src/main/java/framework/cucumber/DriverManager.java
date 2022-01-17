@@ -20,7 +20,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverManager {
 	private WebDriver driver;
-	private RemoteWebDriver remotedriver;
+	private RemoteWebDriver remoteDriver;
 	private static DriverType driverType;
 	private static EnvironmentType environmentType;
 
@@ -73,7 +73,7 @@ public class DriverManager {
 			foptions.setHeadless(headless);
 			WebDriverManager.firefoxdriver().architecture(archType)
 					.version(ConfigProvider.getAsString("firefox.version")).setup();
-			remotedriver = new RemoteWebDriver(new URL(hubURL), foptions);
+			remoteDriver = new RemoteWebDriver(new URL(hubURL), foptions);
 			break;
 		case CHROME:
 			ChromeOptions options = new ChromeOptions();
@@ -85,7 +85,7 @@ public class DriverManager {
 			dc.setCapability(ChromeOptions.CAPABILITY, options);
 			WebDriverManager.chromedriver().architecture(archType).version(ConfigProvider.getAsString("chrome.version"))
 					.setup();
-			remotedriver = new RemoteWebDriver(new URL(hubURL), dc);
+			remoteDriver = new RemoteWebDriver(new URL(hubURL), dc);
 			break;
 		case INTERNETEXPLORER:
 			InternetExplorerOptions ieoptions = new InternetExplorerOptions();
@@ -97,13 +97,13 @@ public class DriverManager {
 			ieoptions.enableNativeEvents();
 			WebDriverManager.iedriver().architecture(archType).version(ConfigProvider.getAsString("ie.version"))
 					.setup();
-			remotedriver = new RemoteWebDriver(new URL(hubURL), ieoptions);
+			remoteDriver = new RemoteWebDriver(new URL(hubURL), ieoptions);
 			break;
 		default:
 			System.out.println("Please Update Browser In Properties");
 		}
 
-		return remotedriver;
+		return remoteDriver;
 	}
 
 	@SuppressWarnings("deprecation")

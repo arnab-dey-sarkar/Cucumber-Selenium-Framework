@@ -16,16 +16,15 @@ public class API_StepDefinitions {
 
 	@Given("The BaseURL is \"([^\"]*)\"")
 	public void the_BaseURL_is(String baseURI) throws Exception {
-		String baseURL = ConfigProvider.getAsString("BaseURL") + baseURI;
-		RestAssured.baseURI = baseURL;
+		RestAssured.baseURI = ConfigProvider.getAsString("BaseURL") + baseURI;
 		request = RestAssured.given();
 	}
 
 	@Given("Static \"([^\"]*)\" Information Are Loaded")
 	public void static_Information_Are_Loaded(String headers) throws Exception {
 		if (headers != null) {
-			String[] headerlist = DefaultStepDefinition.getCellData(headers).split("\n");
-			for (String list : headerlist) {
+			String[] headerList = DefaultStepDefinition.getCellData(headers).split("\n");
+			for (String list : headerList) {
 				String[] values = list.split(":");
 				request.header(values[0], values[1]);
 			}
