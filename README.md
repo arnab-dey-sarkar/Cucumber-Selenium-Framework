@@ -12,7 +12,7 @@ Set Path Variables
 User Variable Path = directory for Java SDK 8 Set Maven home in environment Variables
    
 Steps to write and design a test scenario
-Each Feature file has it’s step defition, pageobject & model class
+Each Feature file has its step definition, page-object & model class
               
    1-Create Feature file and define feature scenario test
                        
