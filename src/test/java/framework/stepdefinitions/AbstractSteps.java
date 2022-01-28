@@ -9,11 +9,13 @@ public class AbstractSteps {
 	private DriverManager webDriverManager;
 	protected PageObjectManager pageObjectManager;
 	static WebDriver driver;
+	ThreadLocal<WebDriver> threadLocalDriver=new ThreadLocal<>();
 
 	public void startDriver() throws Exception {
 		webDriverManager = new DriverManager();
 		driver=webDriverManager.getDriverInstance();
-		pageObjectManager = new PageObjectManager(driver);
+		threadLocalDriver.set(driver);
+		pageObjectManager = new PageObjectManager(getDriver());
 		
 	}
 
@@ -27,12 +29,12 @@ public class AbstractSteps {
 	}
 	public WebDriver getDriver()
 	{
-		return driver;
+		return threadLocalDriver.get();
 	}
 	public void stopDriver()
 	{
-		driver.close();
-		driver.quit();
+		threadLocalDriver.get().close();
+		threadLocalDriver.get().quit();
 	}
 	
 
