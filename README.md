@@ -1,11 +1,11 @@
-Selenium & Java based frontend automation suite utilising the BDD methodologies of Cucumber and Gherkin
+Selenium & Java based UI + API automation suite utilising the BDD methodologies of Cucumber and Gherkin
 
 1. Install JAVA SDK 8
 2. Install Maven
 3. Install Git
-4. Install Eclipse
-5. Install Eclipse Cucumber Plugin
-6. Install Eclipse TestNG Plugin
+4. Install Eclipse/Intellij
+5. Install Eclipse/Intellij Cucumber Plugin
+6. Install Eclipse/Intellij TestNG Plugin
 
 
 Set Path Variables
