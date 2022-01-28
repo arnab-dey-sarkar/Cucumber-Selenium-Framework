@@ -1,17 +1,20 @@
 package framework.stepdefinitions;
 
 import org.openqa.selenium.WebDriver;
-
 import framework.cucumber.DriverManager;
 import framework.pageobjectmanager.PageObjectManager;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeMethod;
 
-public class AbstractSteps {
-	private DriverManager webDriverManager;
-	protected PageObjectManager pageObjectManager;
+
+public class AbstractSteps  {
+	private static DriverManager webDriverManager;
+	protected static PageObjectManager pageObjectManager;
 	static WebDriver driver;
-	ThreadLocal<WebDriver> threadLocalDriver=new ThreadLocal<>();
+	static ThreadLocal<WebDriver> threadLocalDriver=new ThreadLocal<>();
 
-	public void startDriver() throws Exception {
+	@BeforeMethod
+	public static void startDriver() throws Exception {
 		webDriverManager = new DriverManager();
 		driver=webDriverManager.getDriverInstance();
 		threadLocalDriver.set(driver);
@@ -27,14 +30,20 @@ public class AbstractSteps {
 	{
 		return pageObjectManager;
 	}
-	public WebDriver getDriver()
+
+	public synchronized static WebDriver getDriver()
 	{
 		return threadLocalDriver.get();
 	}
-	public void stopDriver()
-	{
-		threadLocalDriver.get().close();
-		threadLocalDriver.get().quit();
+
+	public static void stopDriver() {
+		getDriver().close();
+		getDriver().quit();
+	}
+	public static void terminateDriver()  {
+		//getDriver().close();
+		//getDriver().quit();
+		threadLocalDriver.remove();
 	}
 	
 

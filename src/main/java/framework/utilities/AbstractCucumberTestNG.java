@@ -1,5 +1,6 @@
 package framework.utilities;
 
+import com.aventstack.extentreports.ExtentReports;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -26,11 +27,17 @@ public class AbstractCucumberTestNG {
 		testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
 	}
 
-	@DataProvider
+	@DataProvider(parallel = true)
 	public Object[][] features() {
 		return testNGCucumberRunner.provideFeatures();
 	}
 
+	@BeforeClass
+	public void generateReport()
+	{
+		ExtentReports extentReports = new ExtentReports();
+		extentReports.flush();
+	}
 	@AfterClass
 	public static void writeExtentReport() {
 		Reporter.loadXMLConfig("src/test/resources/properties/extent-config.xml");
@@ -41,5 +48,6 @@ public class AbstractCucumberTestNG {
 
 		testNGCucumberRunner.finish();
 	}
+
 
 }

@@ -8,7 +8,7 @@ import framework.dataProvider.ConfigProvider;
 public class LoginStepDefinition extends AbstractSteps {
     @Given("^User is on Homepage$")
     public void User_is_on_Homepage() throws Exception {
-        startDriver();
+        //startDriver();
         getDriver().get(ConfigProvider.getAsString("ApplicationUrl"));
         pageObjectManager.getHomePage().User_is_on_Homepage();
 
@@ -32,6 +32,5 @@ public class LoginStepDefinition extends AbstractSteps {
     @Then("^User Snaps a Screenshot$")
     public void userSnapsAScreenshot() throws Exception {
         pageObjectManager.getHomePage().userSnapsAScreenshot();
-        stopDriver();
     }
 }

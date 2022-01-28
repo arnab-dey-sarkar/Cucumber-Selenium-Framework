@@ -32,7 +32,7 @@ public class DefaultStepDefinition extends AbstractCucumberTestNG {
     private static Scenario scenario;
 
     @Given("A WorkBook Named \"([^\"]*)\" with SheetName \"([^\"]*)\" is Loaded")
-    public void setWorkBookConfiguration(String workbookName, String sheetName) throws IOException {
+    public synchronized void  setWorkBookConfiguration(String workbookName, String sheetName) throws IOException {
         DefaultStepDefinition.sheetName = sheetName;
         workBook = findFile(workbookName, "./src/test/resources/data");
     }
@@ -42,7 +42,7 @@ public class DefaultStepDefinition extends AbstractCucumberTestNG {
         DefaultStepDefinition.scenario = scenario;
     }
 
-    public static String getCellData(String columnName) throws Exception {
+    public static synchronized String getCellData(String columnName) throws Exception {
         String testCase = scenario.getName();
         try {
             Fillo fillo = new Fillo();

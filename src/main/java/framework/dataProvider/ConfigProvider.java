@@ -11,7 +11,6 @@ import framework.enums.EnvironmentType;
 
 public class ConfigProvider {
 
-	private static Properties properties;
 	private final static String propertyFilePath = "./src/test/resources/properties";
 
 	public DriverType getBrowser() throws Exception {
@@ -42,8 +41,10 @@ public class ConfigProvider {
 	public static String getAsString(String property) throws Exception {
 		File dir = new File(propertyFilePath);
 		File[] files = dir.listFiles((dir1, name) -> name.endsWith(".properties"));
+		assert files != null;
 		for (File f : files) {
 			BufferedReader reader;
+			Properties properties;
 			try {
 				reader = new BufferedReader(new FileReader(f));
 				properties = new Properties();
@@ -65,7 +66,7 @@ public class ConfigProvider {
 		throw new Exception("Propery Not Found");
 
 	}
-	public static int getAsInt(String property) throws NumberFormatException, Exception
+	public static int getAsInt(String property) throws Exception
 	{
 		return Integer.parseInt(ConfigProvider.getAsString(property));
 	}

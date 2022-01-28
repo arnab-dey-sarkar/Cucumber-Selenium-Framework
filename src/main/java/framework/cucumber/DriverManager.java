@@ -48,7 +48,7 @@ public class DriverManager {
 	}
 
 	private WebDriver createRemoteDriver() throws Exception {
-		String hubURL = new String();
+		String hubURL;
 		// Browser_Stack_Configuration
 		boolean browserStack = ConfigProvider.getAsBoolean("browserStackMode");
 		if (browserStack)
@@ -137,16 +137,16 @@ public class DriverManager {
 			driver = new ChromeDriver(options);
 			break;
 		case INTERNETEXPLORER:
-			InternetExplorerOptions ieoptions = new InternetExplorerOptions();
-			ieoptions.enablePersistentHovering();
-			ieoptions.ignoreZoomSettings();
-			ieoptions.requireWindowFocus();
-			ieoptions.introduceFlakinessByIgnoringSecurityDomains();
-			ieoptions.isJavascriptEnabled();
-			ieoptions.enableNativeEvents();
+			InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+			ieOptions.enablePersistentHovering();
+			ieOptions.ignoreZoomSettings();
+			ieOptions.requireWindowFocus();
+			ieOptions.introduceFlakinessByIgnoringSecurityDomains();
+			ieOptions.isJavascriptEnabled();
+			ieOptions.enableNativeEvents();
 			WebDriverManager.iedriver().architecture(archType).version(ConfigProvider.getAsString("ie.version"))
 					.setup();
-			driver = new InternetExplorerDriver(ieoptions);
+			driver = new InternetExplorerDriver(ieOptions);
 			break;
 		default:
 			System.out.println("Please Update Browser In Properties");
