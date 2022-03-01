@@ -41,6 +41,6 @@ public class LoginStepDefinition extends AbstractSteps {
 
     @Then("^Check If Tickets Are Available For (.*)$")
     public void checkForTickets(String theatre) throws Exception {
-        pageObjectManager.getHomePage().checkForTickets();
+        pageObjectManager.getHomePage().checkForTickets(theatre);
     }
 }

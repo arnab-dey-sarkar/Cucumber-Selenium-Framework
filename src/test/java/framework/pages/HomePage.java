@@ -45,15 +45,15 @@ public class HomePage extends BasePageObject {
         TakeScreenshot();
     }
 
-    public void checkForTickets() {
+    public void checkForTickets(String theatre) {
         List<WebElement> a = driver.findElements(By.xpath("//a[@class='__venue-name']"));
         try {
-            Optional<String> name = Optional.ofNullable(a.stream().filter(w -> w.getText().contains("City Centre")).findFirst().get().getText());
-            System.out.println(name.get());
+            Optional<String> name = Optional.ofNullable(a.stream().filter(w -> w.getText().contains(theatre)).findFirst().get().getText());
+            System.out.println("Tickets Available For "+name.get());
         }
         catch (NoSuchElementException e)
         {
-            System.out.println("Not Tickets Available For CC2");
+            System.out.println("No Tickets Available For "+theatre);
         }
 
     }
