@@ -8,11 +8,16 @@ import framework.dataProvider.ConfigProvider;
 public class LoginStepDefinition extends AbstractSteps {
     @Given("^User is on Homepage$")
     public void User_is_on_Homepage() throws Exception {
-        //startDriver();
         getDriver().get(ConfigProvider.getAsString("ApplicationUrl"));
         pageObjectManager.getHomePage().User_is_on_Homepage();
 
     }
+
+    @Given("^User is on Movie page$")
+    public void User_is_on_MoviePage() throws Exception {
+        getDriver().get(ConfigProvider.getAsString("ApplicationUrl"));
+    }
+
 
     @When("^User Clicks On Login$")
     public void user_Clicks_On_Login() {
@@ -32,5 +37,10 @@ public class LoginStepDefinition extends AbstractSteps {
     @Then("^User Snaps a Screenshot$")
     public void userSnapsAScreenshot() throws Exception {
         pageObjectManager.getHomePage().userSnapsAScreenshot();
+    }
+
+    @Then("^Check If Tickets Are Available For (.*)$")
+    public void checkForTickets(String theatre) throws Exception {
+        pageObjectManager.getHomePage().checkForTickets();
     }
 }

@@ -32,7 +32,7 @@ public class DefaultStepDefinition extends AbstractCucumberTestNG {
     private static Scenario scenario;
 
     @Given("A WorkBook Named \"([^\"]*)\" with SheetName \"([^\"]*)\" is Loaded")
-    public synchronized void  setWorkBookConfiguration(String workbookName, String sheetName) throws IOException {
+    public synchronized void setWorkBookConfiguration(String workbookName, String sheetName) throws IOException {
         DefaultStepDefinition.sheetName = sheetName;
         workBook = findFile(workbookName, "./src/test/resources/data");
     }
@@ -66,8 +66,7 @@ public class DefaultStepDefinition extends AbstractCucumberTestNG {
         }
         if (dataMap.containsKey(testCase)) {
             return (String) dataMap.get(testCase).get(columnName);
-        }
-        else
+        } else
             throw new Exception("No Testdata Found With Relevance To Scenario Name");
     }
 

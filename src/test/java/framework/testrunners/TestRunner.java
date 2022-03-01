@@ -10,21 +10,23 @@ import org.testng.annotations.*;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"framework.stepdefinitions"},
-        plugin ={"com.cucumber.listener.ExtentCucumberFormatter:BDD_REPORTS/BDD-REPORT.html"},
-        tags = {"@UI"},
-        dryRun = false,monochrome = true)
+        plugin = {"com.cucumber.listener.ExtentCucumberFormatter:BDD_REPORTS/BDD-REPORT.html"},
+        tags = {"@UI1"},
+        dryRun = false, monochrome = true)
 
-public class TestRunner extends AbstractCucumberTestNG{
+public class TestRunner extends AbstractCucumberTestNG {
     @BeforeMethod
     public void driverStart() throws Exception {
         AbstractSteps.startDriver();
     }
+
     @AfterMethod
-    public void driverTeardown()  {
+    public void driverTeardown() {
         AbstractSteps.stopDriver();
     }
+
     @AfterClass
-    void terminate () {
+    void terminate() {
         AbstractSteps.terminateDriver();
     }
 }
