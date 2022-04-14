@@ -10,7 +10,7 @@ import org.testng.annotations.*;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = {"framework.stepdefinitions"},
-        plugin = {"com.cucumber.listener.ExtentCucumberFormatter:BDD_REPORTS/BDD-REPORT.html"},
+        plugin = {"pretty", "json:BDD_REPORTS/cucumber.json","com.cucumber.listener.ExtentCucumberFormatter:BDD_REPORTS/BDD-REPORT.html"},
         tags = {"@UI1"},
         dryRun = false, monochrome = true)
 
