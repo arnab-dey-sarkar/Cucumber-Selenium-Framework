@@ -16,7 +16,7 @@ public class AbstractCucumberTestNG {
     static ExtentReports extentReports;
 
     @BeforeClass(alwaysRun = true)
-    public void setUpClass() throws Exception {
+    public void setUpClass() {
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
 
@@ -44,7 +44,7 @@ public class AbstractCucumberTestNG {
     }
 
     @AfterClass(alwaysRun = true)
-    public void tearDownClass() throws Exception {
+    public void tearDownClass() {
 
         testNGCucumberRunner.finish();
     }
