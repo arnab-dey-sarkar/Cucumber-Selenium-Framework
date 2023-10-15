@@ -1,7 +1,9 @@
 package framework.cucumber;
 
-import java.net.URL;
-
+import framework.dataProvider.ConfigProvider;
+import framework.enums.DriverType;
+import framework.enums.EnvironmentType;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,14 +11,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import framework.dataProvider.ConfigProvider;
-import framework.enums.DriverType;
-import framework.enums.EnvironmentType;
-import io.github.bonigarcia.wdm.Architecture;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import java.net.URL;
 
 public class DriverManager {
 	private WebDriver driver;
@@ -59,45 +56,19 @@ public class DriverManager {
 		/// HeadLess Mode
 		boolean headless = ConfigProvider.getAsBoolean("headLess");
 		/// Architecture Selection
-		Architecture archType = Architecture.DEFAULT;
-		String arch = ConfigProvider.getAsString("arch.version");
-		if (arch.equalsIgnoreCase("32"))
-			archType = Architecture.X32;
-		else if (arch.equalsIgnoreCase("64"))
-			archType = Architecture.X64;
 
 		switch (driverType) {
 		case FIREFOX:
-			FirefoxOptions foptions = new FirefoxOptions();
-			foptions.isJavascriptEnabled();
-			foptions.setHeadless(headless);
-			WebDriverManager.firefoxdriver().architecture(archType)
-					.version(ConfigProvider.getAsString("firefox.version")).setup();
-			remoteDriver = new RemoteWebDriver(new URL(hubURL), foptions);
+			FirefoxOptions firefoxOptions=setupFirefox(headless);
+			remoteDriver = new RemoteWebDriver(new URL(hubURL), firefoxOptions);
 			break;
 		case CHROME:
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--start-maximized");
-			options.addArguments("--disable-notifications");
-			options.addArguments("disable-infobars");
-			options.setHeadless(headless);
-			DesiredCapabilities dc = DesiredCapabilities.chrome();
-			dc.setCapability(ChromeOptions.CAPABILITY, options);
-			WebDriverManager.chromedriver().architecture(archType).version(ConfigProvider.getAsString("chrome.version"))
-					.setup();
-			remoteDriver = new RemoteWebDriver(new URL(hubURL), dc);
+			ChromeOptions options=setupChrome(headless);
+			remoteDriver = new RemoteWebDriver(new URL(hubURL), options);
 			break;
 		case INTERNETEXPLORER:
-			InternetExplorerOptions ieoptions = new InternetExplorerOptions();
-			ieoptions.enablePersistentHovering();
-			ieoptions.ignoreZoomSettings();
-			ieoptions.requireWindowFocus();
-			ieoptions.introduceFlakinessByIgnoringSecurityDomains();
-			ieoptions.isJavascriptEnabled();
-			ieoptions.enableNativeEvents();
-			WebDriverManager.iedriver().architecture(archType).version(ConfigProvider.getAsString("ie.version"))
-					.setup();
-			remoteDriver = new RemoteWebDriver(new URL(hubURL), ieoptions);
+			InternetExplorerOptions ieOptions=setupInternetExplorer();
+			remoteDriver = new RemoteWebDriver(new URL(hubURL), ieOptions);
 			break;
 		default:
 			System.out.println("Please Update Browser In Properties");
@@ -106,46 +77,23 @@ public class DriverManager {
 		return remoteDriver;
 	}
 
-	@SuppressWarnings("deprecation")
+
 	private WebDriver createLocalDriver() throws Exception {
 		/// HeadLess Mode
 		boolean headless = ConfigProvider.getAsBoolean("headLess");
 		/// Architecture Selection
-		Architecture archType = Architecture.DEFAULT;
-		String arch = ConfigProvider.getAsString("arch.version");
-		if (arch.equalsIgnoreCase("32"))
-			archType = Architecture.X32;
-		else if (arch.equalsIgnoreCase("64"))
-			archType = Architecture.X64;
 
 		switch (driverType) {
 		case FIREFOX:
-			FirefoxOptions foptions = new FirefoxOptions();
-			foptions.isJavascriptEnabled();
-			foptions.setHeadless(headless);
-			WebDriverManager.firefoxdriver().architecture(archType)
-					.version(ConfigProvider.getAsString("firefox.version")).setup();
-			driver = new FirefoxDriver();
+			FirefoxOptions firefoxOptions=setupFirefox(headless);
+			driver = new FirefoxDriver(firefoxOptions);
 			break;
 		case CHROME:
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments("--start-maximized");
-			options.addArguments("--disable-notifications");
-			options.setHeadless(headless);
-			WebDriverManager.chromedriver().architecture(archType).version(ConfigProvider.getAsString("chrome.version"))
-					.setup();
+			ChromeOptions options=setupChrome(headless);
 			driver = new ChromeDriver(options);
 			break;
 		case INTERNETEXPLORER:
-			InternetExplorerOptions ieOptions = new InternetExplorerOptions();
-			ieOptions.enablePersistentHovering();
-			ieOptions.ignoreZoomSettings();
-			ieOptions.requireWindowFocus();
-			ieOptions.introduceFlakinessByIgnoringSecurityDomains();
-			ieOptions.isJavascriptEnabled();
-			ieOptions.enableNativeEvents();
-			WebDriverManager.iedriver().architecture(archType).version(ConfigProvider.getAsString("ie.version"))
-					.setup();
+			InternetExplorerOptions ieOptions=setupInternetExplorer();
 			driver = new InternetExplorerDriver(ieOptions);
 			break;
 		default:
@@ -153,5 +101,33 @@ public class DriverManager {
 		}
 
 		return driver;
+	}
+	public FirefoxOptions setupFirefox(boolean headless)
+	{
+		FirefoxOptions firefoxOptions = new FirefoxOptions();
+		firefoxOptions.setHeadless(headless);
+		WebDriverManager.firefoxdriver().setup();
+		return firefoxOptions;
+	}
+	public ChromeOptions setupChrome(boolean headless)
+	{
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--start-maximized");
+		options.addArguments("--disable-notifications");
+		options.addArguments("disable-infobars");
+		options.setHeadless(headless);
+		WebDriverManager.chromedriver().setup();
+		return options;
+	}
+	public InternetExplorerOptions setupInternetExplorer()
+	{
+		InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+		ieOptions.enablePersistentHovering();
+		ieOptions.ignoreZoomSettings();
+		ieOptions.requireWindowFocus();
+		ieOptions.introduceFlakinessByIgnoringSecurityDomains();
+		ieOptions.enableNativeEvents();
+		WebDriverManager.iedriver().setup();
+		return ieOptions;
 	}
 }

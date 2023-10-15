@@ -1,11 +1,11 @@
 package framework.testrunners;
 
 import cucumber.api.CucumberOptions;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import framework.stepdefinitions.AbstractSteps;
 import framework.utilities.AbstractCucumberTestNG;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 @CucumberOptions(
         features = "src/test/resources/features",

@@ -11,7 +11,7 @@ public class PageObjectManager {
 	private static HomePage homePage;
 
 	public PageObjectManager(WebDriver driver) {
-		this.driver = driver;
+		PageObjectManager.driver = driver;
 	}
 
 	public HomePage getHomePage() {

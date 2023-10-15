@@ -5,7 +5,7 @@
 
     <groupId>Cucumber-Selenium-Framework</groupId>
     <artifactId>Cucumber-Selenium-Framework</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Cucumber-Selenium-Framework</name>
@@ -63,7 +63,7 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>3.8.1</version>
+            <version>5.5.3</version>
         </dependency>
         <dependency>
             <groupId>com.vimalselvam</groupId>
