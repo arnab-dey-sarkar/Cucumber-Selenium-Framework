@@ -3,9 +3,10 @@ package framework.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import framework.utilities.AssertionLibrary;
 import framework.utilities.BasePageObject;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.asserts.Assertion;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -22,7 +23,7 @@ public class HomePage extends BasePageObject {
     private String passwordField = "//input[@id='txtPassword']";
 
     public void User_is_on_Homepage() {
-        AssertionLibrary.assertTrue(isDisplayed(home), "Homepage Verification");
+        Assert.assertTrue(isDisplayed(home), "Homepage Verification");
     }
 
     public void user_Clicks_On_Login() {
@@ -33,7 +34,7 @@ public class HomePage extends BasePageObject {
 
     public void verify_The_Login_Page() {
         Ele_visibility_Wait(loginButton);
-        AssertionLibrary.assertTrue(isDisplayed(loginButton), "Login Page Verification");
+        Assert.assertTrue(isDisplayed(loginButton), "Login Page Verification");
     }
 
     public void userEntersUsernameAsUsernameAndPasswordAsPassword(String userName, String passWord) {

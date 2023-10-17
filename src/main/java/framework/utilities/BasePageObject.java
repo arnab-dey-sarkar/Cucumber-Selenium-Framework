@@ -1,16 +1,15 @@
 package framework.utilities;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-public class BasePageObject 
+
+import java.io.File;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+public class BasePageObject
 {
 	public static WebDriver driver;
 	
@@ -53,8 +52,7 @@ public class BasePageObject
 	//retrieves  the text of the given element
 	public static String getText(String locator)
 	{
-		String text=driver.findElement(By.xpath(locator)).getText();
-		return text;
+        return driver.findElement(By.xpath(locator)).getText();
 	}
 	//implicit wait for a given time
 	public static void sleep(long time) throws InterruptedException
@@ -62,9 +60,9 @@ public class BasePageObject
 		driver.manage().timeouts().implicitlyWait(time, TimeUnit.MILLISECONDS);
 	}
 	//helps switch to a frame or iframe
-	public static void switchToFrame(String frameid)
+	public static void switchToFrame(String frameId)
 	{
-		driver.switchTo().frame(frameid);
+		driver.switchTo().frame(frameId);
 	}
 	//returns true if an element is present in a webpage
 	public static boolean isPresent(String locator)
@@ -120,7 +118,7 @@ public class BasePageObject
 	}
 	public void Ele_presence_Wait(String locator)
 	{
-		WebDriverWait  wait=new WebDriverWait(driver,30);
+		WebDriverWait  wait=new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
 	}
 	public void Ele_visibility_Wait(String locator)

@@ -19,35 +19,28 @@ public class AbstractCucumberTestNG {
     public void setUpClass() {
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
-
     @Test(groups = "cucumber", description = "Runs Cucumber Feature", dataProvider = "features")
     public void feature(CucumberFeatureWrapper cucumberFeature) {
         testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
     }
-
     @DataProvider(parallel = true)
     public Object[][] features() {
         return testNGCucumberRunner.provideFeatures();
     }
-
     @BeforeClass
     public void generateReport() {
         extentReports = new ExtentReports();
         extentReports.flush();
     }
-
     @AfterClass(alwaysRun = true)
     public static void writeExtentReport() {
         extentReports.setSystemInfo("User Name", System.getProperty("user.name"));
         extentReports.setSystemInfo("Time Zone", System.getProperty("user.timezone"));
         extentReports.setSystemInfo("OS", System.getProperty("os.name"));
     }
-
     @AfterClass(alwaysRun = true)
     public void tearDownClass() {
 
         testNGCucumberRunner.finish();
     }
-
-
 }

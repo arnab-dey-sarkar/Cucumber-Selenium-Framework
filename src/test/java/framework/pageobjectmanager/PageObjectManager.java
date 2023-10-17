@@ -8,7 +8,7 @@ public class PageObjectManager {
 
 	private static WebDriver driver;
 
-	private static HomePage homePage;
+	private HomePage homePage;
 
 	public PageObjectManager(WebDriver driver) {
 		PageObjectManager.driver = driver;

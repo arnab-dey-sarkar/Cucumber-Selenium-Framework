@@ -1,11 +1,8 @@
 package framework.testrunners;
 
 import cucumber.api.CucumberOptions;
-import framework.stepdefinitions.AbstractSteps;
 import framework.utilities.AbstractCucumberTestNG;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "src/test/resources/features",
@@ -15,18 +12,8 @@ import org.testng.annotations.BeforeMethod;
         dryRun = false, monochrome = true)
 
 public class TestRunner extends AbstractCucumberTestNG {
-    @BeforeMethod
-    public void driverStart() throws Exception {
-        AbstractSteps.startDriver();
-    }
-
-    @AfterMethod
-    public void driverTeardown() {
-        AbstractSteps.stopDriver();
-    }
-
-    @AfterClass
-    void terminate() {
-        AbstractSteps.terminateDriver();
+    @DataProvider(parallel = true)
+    public Object[][] features() {
+        return super.features();
     }
 }
