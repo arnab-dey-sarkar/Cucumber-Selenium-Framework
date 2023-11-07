@@ -9,7 +9,7 @@ import org.testng.annotations.*;
         features = "src/test/resources/features",
         glue = {"framework.stepdefinitions"},
         plugin ={"com.cucumber.listener.ExtentCucumberFormatter:BDD_REPORTS/BDD-REPORT.html"},
-        tags = {"@UI1"},
+        tags = {"@UI"},
         dryRun = false,monochrome = true)
 
 public class TestRunner1 extends AbstractCucumberTestNG{

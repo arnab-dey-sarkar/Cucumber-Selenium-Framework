@@ -6,7 +6,6 @@ Feature: Free CRM Login Feature
 
   Scenario Outline: GTPL-KCBPL Login
     Given User is on Homepage
-    Then Verify The Login Page
     When User Enters Username as <Username> and Password as <Password>
     And User Clicks On Login
     Then User Snaps a Screenshot

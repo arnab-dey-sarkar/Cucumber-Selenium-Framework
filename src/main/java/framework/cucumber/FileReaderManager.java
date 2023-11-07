@@ -4,8 +4,8 @@ import framework.dataProvider.ConfigProvider;
 
 public class FileReaderManager {
 
-	private static FileReaderManager fileReaderManager = new FileReaderManager();
-	private static ConfigProvider configFileReader;
+	private static final FileReaderManager fileReaderManager = new FileReaderManager();
+	private static final ConfigProvider configFileReader=new ConfigProvider();
 
 	private FileReaderManager() {
 	}
@@ -15,7 +15,7 @@ public class FileReaderManager {
 	}
 
 	public ConfigProvider getConfigReader() {
-		return (configFileReader == null) ? new ConfigProvider() : configFileReader;
+		return configFileReader;
 	}
 
 }

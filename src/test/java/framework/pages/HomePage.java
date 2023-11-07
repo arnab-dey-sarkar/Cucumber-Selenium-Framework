@@ -1,12 +1,10 @@
 package framework.pages;
 
+import framework.utilities.BasePageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import framework.utilities.BasePageObject;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.asserts.Assertion;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -17,23 +15,25 @@ public class HomePage extends BasePageObject {
         super(driver);
     }
 
-    private String home = "//a[contains(text(),'bbcare@gtplkcbpl.com')]";
-    private String loginButton = "//input[@id='save']";
-    private String usernameField = "//input[@id='txtUserName']";
-    private String passwordField = "//input[@id='txtPassword']";
+    private final String home = "//h5[contains(text(),'Login your Account')]";
+    private final String loginButton = "//button[@type='LOGIN']";
+    private final String usernameField = "//input[@placeholder='Username']";
+    private final String passwordField = "//input[@placeholder='Password']";
 
-    public void User_is_on_Homepage() {
-        Assert.assertTrue(isDisplayed(home), "Homepage Verification");
+    public void User_is_on_Homepage() throws InterruptedException {
+
+        ele_Visibility_Wait(loginButton);
+        Assert.assertTrue(isDisplayed(loginButton), "Homepage Verification");
     }
 
     public void user_Clicks_On_Login() {
-        Ele_presence_Wait(loginButton);
+        ele_Presence_Wait(loginButton);
         clickElement(loginButton);
 
     }
 
     public void verify_The_Login_Page() {
-        Ele_visibility_Wait(loginButton);
+        ele_Visibility_Wait(loginButton);
         Assert.assertTrue(isDisplayed(loginButton), "Login Page Verification");
     }
 
@@ -43,14 +43,14 @@ public class HomePage extends BasePageObject {
     }
 
     public void userSnapsAScreenshot() throws Exception {
-        TakeScreenshot();
+        takeScreenshot();
     }
 
     public void checkForTickets(String theatre) {
         List<WebElement> a = driver.findElements(By.xpath("//a[@class='__venue-name']"));
         try {
             Optional<String> name = Optional.ofNullable(a.stream().filter(w -> w.getText().contains(theatre)).findFirst().get().getText());
-            System.out.println("Tickets Available For "+name.get());
+            name.ifPresent(s -> System.out.println("Tickets Available For " + s));
         }
         catch (NoSuchElementException e)
         {

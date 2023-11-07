@@ -74,7 +74,7 @@ public class BasePageObject
 			return false;
 	}
 //takes the screenshot and stores it in Screenshots folder
-	public static String TakeScreenshot() throws Exception{
+	public static String takeScreenshot() throws Exception{
 		String fileWithPath="Screenshots\\Screenshot"+System.currentTimeMillis()+".png";	
         TakesScreenshot scrShot =((TakesScreenshot)driver);
         File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
@@ -95,33 +95,33 @@ public class BasePageObject
 		driver.switchTo().defaultContent();
 	}
 	//navigates to an URL
-	public static void NavigateTo(String url)
+	public static void navigateTo(String url)
 	{
 		driver.navigate().to(url);
 	}
 	//maximizes the browser window
-	public static void Maximize()
+	public static void maximize()
 	{
 		driver.manage().window().maximize();
 	}
 	//switches to new tab or window
 	public static String switchTab()
 	{
-		Set<String> windowhandles=driver.getWindowHandles();
-		String mainwindowhandle=driver.getWindowHandle();
-		for(String i:windowhandles)
+		Set<String> windowHandles=driver.getWindowHandles();
+		String mainWindowHandle=driver.getWindowHandle();
+		for(String windowHandle:windowHandles)
 		{
-			if(i!=mainwindowhandle)
-				driver.switchTo().window(i);
+			if(!windowHandle.equals(mainWindowHandle))
+				driver.switchTo().window(windowHandle);
 		}
-		return mainwindowhandle;
+		return mainWindowHandle;
 	}
-	public void Ele_presence_Wait(String locator)
+	public void ele_Presence_Wait(String locator)
 	{
 		WebDriverWait  wait=new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
 	}
-	public void Ele_visibility_Wait(String locator)
+	public void ele_Visibility_Wait(String locator)
 	{
 		WebDriverWait  wait=new WebDriverWait(driver,30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
